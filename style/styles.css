@@ -3,3 +3,38 @@ body {
     background-position: bottom;
     background-size: cover;
 }
+
+.textStyle1 {
+    color: #08FF03;
+    font-size: 30px;
+}
+
+.textStyle2 {
+    color: #08FF03;
+    font-size: 40px;
+}
+
+.textStyle3 {
+    color: #08FF03;
+    font-size: 50px;
+}
+
+.textStyle3B {
+    color: #000;
+    font-size: 50px;
+}
+
+.textStyle4 {
+    color: #08FF03;
+    font-size: 60px;
+}
+
+.textStyle5 {
+    color: #08FF03;
+    font-size: 100px;
+}
+
+.textStyle6 {
+    color: #08FF03;
+    font-size: 128px;
+}
