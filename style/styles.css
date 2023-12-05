@@ -2,11 +2,12 @@ body {
     background-image: url(../assets/image.png);
     background-position: bottom;
     background-size: cover;
+    background-attachment: fixed;
 }
 
 .bg {
     background-color: #2A4A3B;
-    opacity: .50;
+    /* opacity: .50; */
 }
 
 .bg0 {
@@ -20,6 +21,11 @@ body {
 
 .textStyle2 {
     color: #08FF03;
+    font-size: 40px;
+}
+
+.textStyle2B {
+    color: #000000;
     font-size: 40px;
 }
 
