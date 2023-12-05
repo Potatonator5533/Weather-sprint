@@ -4,6 +4,15 @@ body {
     background-size: cover;
 }
 
+.bg {
+    background-color: #2A4A3B;
+    opacity: .50;
+}
+
+.bg0 {
+    opacity: 1;
+}
+
 .textStyle1 {
     color: #08FF03;
     font-size: 30px;
@@ -20,7 +29,7 @@ body {
 }
 
 .textStyle3B {
-    color: #000;
+    color: #000000;
     font-size: 50px;
 }
 
@@ -37,4 +46,15 @@ body {
 .textStyle6 {
     color: #08FF03;
     font-size: 128px;
+}
+
+.textStyleSearch {
+    color: #000000;
+    font-size: 30px;
+    /* opacity: 0.43; */
+}
+
+.searchBg {
+    background-color: #D9D9D9;
+    border: 0px;
 }
