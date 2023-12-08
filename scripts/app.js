@@ -1,7 +1,33 @@
+navigator.geolocation.getCurrentPosition(success, errorFunc);
+
+{
+    coords: {
+        latitude: 38.5810606
+        longitude: -121.493895
+    }
+}
+
+//if the user accepts
+function success(position) {
+    console.log("Our latitude: " + position.coords.latitude);
+    console.log("Our longitude: " + position.coords.longitude);
+}
+
+//if the user denies
+function errorFunc(error) {
+    console.log(error.message);
+}
+
 let favList = document.getElementById("favList");
 let home = document.getElementById("home");
 // let dataHere = document.getElementById("dataHere");
-let day = document.getElementById("day");
+let day1 = document.getElementById("day1");
+let day2 = document.getElementById("day2");
+let day3 = document.getElementById("day3");
+let day4 = document.getElementById("day4");
+let day5 = document.getElementById("day5");
+let day6 = document.getElementById("day6");
+let day7 = document.getElementById("day7");
 let cityText1 = document.getElementById("cityText1");
 let cityText2 = document.getElementById("cityText2");
 let cityText3 = document.getElementById("cityText3");
@@ -31,170 +57,144 @@ let iconText2 = document.getElementById("iconText2");
 let iconText3 = document.getElementById("iconText3");
 let iconText4 = document.getElementById("iconText4");
 let iconText5 = document.getElementById("iconText5");
+let iconText6 = document.getElementById("iconText6");
 let userCity = document.getElementById("userCity");
 let submitBtn = document.getElementById("submitBtn");
 
 let iconType;
 let iconIs;
+let kelvin;
 
-test();
+LoadPage();
 
-function test() {
+async function LoadPage() {
+    const promise1 = await fetch('https://api.openweathermap.org/data/2.5/weather?lat=38.5810606&lon=-121.493895&appid=2af1c812e6a78735121f5ae9d2d27f6a');
+    const data1 = await promise1.json();
+    console.log(data1);
+
+    const promise2 = await fetch('https://api.openweathermap.org/data/2.5/forecast?lat=38.5810606&lon=-121.493895&appid=2af1c812e6a78735121f5ae9d2d27f6a');
+    const data2 = await promise2.json();
+    console.log(data2);
+
+
         /* City Name */
-    fetch('https://api.openweathermap.org/data/2.5/weather?lat=38.5810606&lon=-121.493895&appid=2af1c812e6a78735121f5ae9d2d27f6a').then(
-        response => response.json()
-    ).then(
-        data => console.log(data)
-    )
-    fetch('https://api.openweathermap.org/data/2.5/weather?lat=38.5810606&lon=-121.493895&appid=2af1c812e6a78735121f5ae9d2d27f6a').then(
-        response => response.json()
-    ).then(
-        // data => console.log(data)
-        data => cityText1.innerText = data.name
-    )
-    fetch('https://api.openweathermap.org/data/2.5/weather?lat=38.5810606&lon=-121.493895&appid=2af1c812e6a78735121f5ae9d2d27f6a').then(
-        response => response.json()
-    ).then(
-        data => cityText2.innerText = data.name
-    )
-    fetch('https://api.openweathermap.org/data/2.5/weather?lat=38.5810606&lon=-121.493895&appid=2af1c812e6a78735121f5ae9d2d27f6a').then(
-        response => response.json()
-    ).then(
-        data => cityText3.innerText = data.name
-    )
-    fetch('https://api.openweathermap.org/data/2.5/weather?lat=38.5810606&lon=-121.493895&appid=2af1c812e6a78735121f5ae9d2d27f6a').then(
-        response => response.json()
-    ).then(
-        data => cityText4.innerText = data.name
-    )
-    fetch('https://api.openweathermap.org/data/2.5/weather?lat=38.5810606&lon=-121.493895&appid=2af1c812e6a78735121f5ae9d2d27f6a').then(
-        response => response.json()
-    ).then(
-        data => cityText5.innerText = data.name
-    )
+    cityText1.innerText = data1.name
+    cityText2.innerText = data1.name
+    // cityText3.innerText = data1.name
+    // cityText4.innerText = data1.name
+    // cityText5.innerText = data1.name
+
 
         /* Current Temperature */
+    tempNow1.innerText = data1.main.temp
+
     fetch('https://api.openweathermap.org/data/2.5/weather?lat=38.5810606&lon=-121.493895&appid=2af1c812e6a78735121f5ae9d2d27f6a').then(
         response => response.json()
     ).then(
-        data => tempNow1.innerText = data.main.temp
-    )
-    /*fetch('https://api.openweathermap.org/data/2.5/weather?lat=38.5810606&lon=-121.493895&appid=2af1c812e6a78735121f5ae9d2d27f6a').then(
-        response => response.json()
+        data => kelvin = data.main.temp
     ).then(
-        data => tempNow2.innerText = data.main.temp
-    )
-    fetch('https://api.openweathermap.org/data/2.5/weather?lat=38.5810606&lon=-121.493895&appid=2af1c812e6a78735121f5ae9d2d27f6a').then(
-        response => response.json()
-    ).then(
-        data => tempNow3.innerText = data.main.temp
-    )
-    fetch('https://api.openweathermap.org/data/2.5/weather?lat=38.5810606&lon=-121.493895&appid=2af1c812e6a78735121f5ae9d2d27f6a').then(
-        response => response.json()
-    ).then(
-        data => tempNow4.innerText = data.main.temp
-    )
-    fetch('https://api.openweathermap.org/data/2.5/weather?lat=38.5810606&lon=-121.493895&appid=2af1c812e6a78735121f5ae9d2d27f6a').then(
-        response => response.json()
-    ).then(
-        data => tempNow5.innerText = data.main.temp
+        // TempConverter(data)
+    )/*.then(
+        tempNow1.innerText = kelvin
     )*/
 
         /* Hignest Temperature */
+    
+
     fetch('https://api.openweathermap.org/data/2.5/weather?lat=38.5810606&lon=-121.493895&appid=2af1c812e6a78735121f5ae9d2d27f6a').then(
         response => response.json()
     ).then(
-        data => tempHigh1.innerText = data.main.temp_max
+        data => kelvin = data.main.temp_max
+    ).then(
+        TempConverter(kelvin)
     )
-    fetch('https://api.openweathermap.org/data/2.5/weather?lat=38.5810606&lon=-121.493895&appid=2af1c812e6a78735121f5ae9d2d27f6a').then(
+    fetch('https://api.openweathermap.org/data/2.5/forecast?lat=38.5810606&lon=-121.493895&appid=2af1c812e6a78735121f5ae9d2d27f6a').then(
         response => response.json()
     ).then(
-        data => tempHigh2.innerText = data.main.temp_max
+        data => kelvin = data.list[0].main.temp_max
+    ).then(
+        TempConverter(kelvin)
     )
-    fetch('https://api.openweathermap.org/data/2.5/weather?lat=38.5810606&lon=-121.493895&appid=2af1c812e6a78735121f5ae9d2d27f6a').then(
+    fetch('https://api.openweathermap.org/data/2.5/forecast?lat=38.5810606&lon=-121.493895&appid=2af1c812e6a78735121f5ae9d2d27f6a').then(
         response => response.json()
     ).then(
-        data => tempHigh3.innerText = data.main.temp_max
+        data => kelvin = data.list[1].main.temp_max
+    ).then(
+        TempConverter(kelvin)
     )
-    fetch('https://api.openweathermap.org/data/2.5/weather?lat=38.5810606&lon=-121.493895&appid=2af1c812e6a78735121f5ae9d2d27f6a').then(
+    fetch('https://api.openweathermap.org/data/2.5/forecast?lat=38.5810606&lon=-121.493895&appid=2af1c812e6a78735121f5ae9d2d27f6a').then(
         response => response.json()
     ).then(
-        data => tempHigh4.innerText = data.main.temp_max
+        data => kelvin = data.list[2].main.temp_max
+    ).then(
+        TempConverter(kelvin)
     )
-    fetch('https://api.openweathermap.org/data/2.5/weather?lat=38.5810606&lon=-121.493895&appid=2af1c812e6a78735121f5ae9d2d27f6a').then(
+    fetch('https://api.openweathermap.org/data/2.5/forecast?lat=38.5810606&lon=-121.493895&appid=2af1c812e6a78735121f5ae9d2d27f6a').then(
         response => response.json()
     ).then(
-        data => tempHigh5.innerText = data.main.temp_max
+        data => kelvin = data.list[3].main.temp_max
+    ).then(
+        TempConverter(kelvin)
     )
-    fetch('https://api.openweathermap.org/data/2.5/weather?lat=38.5810606&lon=-121.493895&appid=2af1c812e6a78735121f5ae9d2d27f6a').then(
+    fetch('https://api.openweathermap.org/data/2.5/forecast?lat=38.5810606&lon=-121.493895&appid=2af1c812e6a78735121f5ae9d2d27f6a').then(
         response => response.json()
     ).then(
-        data => tempHigh6.innerText = data.main.temp_max
+        data => kelvin = data.list[4].main.temp_max
+    ).then(
+        TempConverter(kelvin)
     )
     
         /* Lowest temperature */
     fetch('https://api.openweathermap.org/data/2.5/weather?lat=38.5810606&lon=-121.493895&appid=2af1c812e6a78735121f5ae9d2d27f6a').then(
         response => response.json()
     ).then(
-        data => tempLow1.innerText = data.main.temp_min
+        data => kelvin = data.main.temp_min
+    ).then(
+        TempConverter(kelvin)
     )
-    fetch('https://api.openweathermap.org/data/2.5/weather?lat=38.5810606&lon=-121.493895&appid=2af1c812e6a78735121f5ae9d2d27f6a').then(
+    fetch('https://api.openweathermap.org/data/2.5/forecast?lat=38.5810606&lon=-121.493895&appid=2af1c812e6a78735121f5ae9d2d27f6a').then(
         response => response.json()
     ).then(
-        data => tempLow2.innerText = data.main.temp_min
+        data => kelvin = data.list[0].main.temp_min
+    ).then(
+        TempConverter(kelvin)
     )
-    fetch('https://api.openweathermap.org/data/2.5/weather?lat=38.5810606&lon=-121.493895&appid=2af1c812e6a78735121f5ae9d2d27f6a').then(
+    fetch('https://api.openweathermap.org/data/2.5/forecast?lat=38.5810606&lon=-121.493895&appid=2af1c812e6a78735121f5ae9d2d27f6a').then(
         response => response.json()
     ).then(
-        data => tempLow3.innerText = data.main.temp_min
+        data => kelvin = data.list[1].main.temp_min
+    ).then(
+        TempConverter(kelvin)
     )
-    fetch('https://api.openweathermap.org/data/2.5/weather?lat=38.5810606&lon=-121.493895&appid=2af1c812e6a78735121f5ae9d2d27f6a').then(
+    fetch('https://api.openweathermap.org/data/2.5/forecast?lat=38.5810606&lon=-121.493895&appid=2af1c812e6a78735121f5ae9d2d27f6a').then(
         response => response.json()
     ).then(
-        data => tempLow4.innerText = data.main.temp_min
+        data => kelvin = data.list[2].main.temp_min
+    ).then(
+        TempConverter(kelvin)
     )
-    fetch('https://api.openweathermap.org/data/2.5/weather?lat=38.5810606&lon=-121.493895&appid=2af1c812e6a78735121f5ae9d2d27f6a').then(
+    fetch('https://api.openweathermap.org/data/2.5/forecast?lat=38.5810606&lon=-121.493895&appid=2af1c812e6a78735121f5ae9d2d27f6a').then(
         response => response.json()
     ).then(
-        data => tempLow5.innerText = data.main.temp_min
+        data => kelvin = data.list[3].main.temp_min
+    ).then(
+        TempConverter(kelvin)
     )
-    fetch('https://api.openweathermap.org/data/2.5/weather?lat=38.5810606&lon=-121.493895&appid=2af1c812e6a78735121f5ae9d2d27f6a').then(
+    fetch('https://api.openweathermap.org/data/2.5/forecast?lat=38.5810606&lon=-121.493895&appid=2af1c812e6a78735121f5ae9d2d27f6a').then(
         response => response.json()
     ).then(
-        data => tempLow6.innerText = data.main.temp_min
+        data => kelvin = data.list[4].main.temp_min
+    ).then(
+        TempConverter(kelvin)
     )
 
         /* Icon's Text Description */
-    fetch('https://api.openweathermap.org/data/2.5/weather?lat=38.5810606&lon=-121.493895&appid=2af1c812e6a78735121f5ae9d2d27f6a').then(
-        response => response.json()
-    ).then(
-        data => iconText1.innerText = data.weather[0].main
-    )
-    fetch('https://api.openweathermap.org/data/2.5/weather?lat=38.5810606&lon=-121.493895&appid=2af1c812e6a78735121f5ae9d2d27f6a').then(
-        response => response.json()
-    ).then(
-        data => iconText2.innerText = data.weather[0].main
-    )
-    fetch('https://api.openweathermap.org/data/2.5/weather?lat=38.5810606&lon=-121.493895&appid=2af1c812e6a78735121f5ae9d2d27f6a').then(
-        response => response.json()
-    ).then(
-        data => iconText3.innerText = data.weather[0].main
-    )
-    fetch('https://api.openweathermap.org/data/2.5/weather?lat=38.5810606&lon=-121.493895&appid=2af1c812e6a78735121f5ae9d2d27f6a').then(
-        response => response.json()
-    ).then(
-        data => iconText4.innerText = data.weather[0].main
-    )
-    fetch('https://api.openweathermap.org/data/2.5/weather?lat=38.5810606&lon=-121.493895&appid=2af1c812e6a78735121f5ae9d2d27f6a').then(
-        response => response.json()
-    ).then(
-        data => iconText5.innerText = data.weather[0].main
-    )
-    fetch('https://api.openweathermap.org/data/2.5/weather?lat=38.5810606&lon=-121.493895&appid=2af1c812e6a78735121f5ae9d2d27f6a').then(
-        response => response.json()
-    ).then(
-        data => iconText6.innerText = data.weather[0].main
-    )
+    iconText1.innerText = data1.weather[0].main
+    iconText2.innerText = data2.list[0].weather[0].main
+    iconText3.innerText = data2.list[0].weather[0].main
+    iconText4.innerText = data2.list[0].weather[0].main
+    iconText5.innerText = data2.list[0].weather[0].main
+    iconText6.innerText = data2.list[0].weather[0].main
 
         /* Icon Image */
     fetch('https://api.openweathermap.org/data/2.5/weather?lat=38.5810606&lon=-121.493895&appid=2af1c812e6a78735121f5ae9d2d27f6a').then(
@@ -240,7 +240,43 @@ function test() {
         getIconType(iconType)
     )*/
 
+        /* Days */
+    /*fetch('https://timeapi.io/api/Time/current/coordinate?latitude=38.5810606&longitude=-121.493895').then(
+        response => response.json()
+    ).then(
+        data => day1.innerText = data.dayOfWeek
+    )
+    fetch('https://timeapi.io/api/Time/current/coordinate?latitude=38.5810606&longitude=-121.493895').then(
+        response => response.json()
+    ).then(
+        data => day2.innerText = data.calculationResult.date
+    )
+    fetch('https://timeapi.io/api/Time/current/coordinate?latitude=38.5810606&longitude=-121.493895').then(
+        response => response.json()
+    ).then(
+        data => day3.innerText = data.calculationResult.date
+    )
+    fetch('https://timeapi.io/api/Time/current/coordinate?latitude=38.5810606&longitude=-121.493895').then(
+        response => response.json()
+    ).then(
+        data => day4.innerText = data.calculationResult.date
+    )
+    fetch('https://timeapi.io/api/Time/current/coordinate?latitude=38.5810606&longitude=-121.493895').then(
+        response => response.json()
+    ).then(
+        data => day5.innerText = data.calculationResult.date
+    )
+    fetch('https://timeapi.io/api/Time/current/coordinate?latitude=38.5810606&longitude=-121.493895').then(
+        response => response.json()
+    ).then(
+        data => day6.innerText = data.calculationResult.date
+    )*/
+
     
+}
+
+function TempConverter(kelvin) {
+    console.log(Math.floor((((kelvin - 273.15) * 9) / 5) + 32))
 }
 
 /*function getIconType(iconType) {
