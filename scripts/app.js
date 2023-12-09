@@ -20,7 +20,6 @@ function errorFunc(error) {
 
 let favList = document.getElementById("favList");
 let home = document.getElementById("home");
-// let dataHere = document.getElementById("dataHere");
 let day1 = document.getElementById("day1");
 let day2 = document.getElementById("day2");
 let day3 = document.getElementById("day3");
@@ -28,12 +27,12 @@ let day4 = document.getElementById("day4");
 let day5 = document.getElementById("day5");
 let day6 = document.getElementById("day6");
 let day7 = document.getElementById("day7");
+let fav = document.getElementById("fav");
 let cityText1 = document.getElementById("cityText1");
 let cityText2 = document.getElementById("cityText2");
 let cityText3 = document.getElementById("cityText3");
 let cityText4 = document.getElementById("cityText4");
 let cityText5 = document.getElementById("cityText5");
-let fav = document.getElementById("fav");
 let tempNow1 = document.getElementById("tempNow1");
 let tempNow2 = document.getElementById("tempNow2");
 let tempNow3 = document.getElementById("tempNow3");
@@ -51,23 +50,32 @@ let tempLow3 = document.getElementById("tempLow3");
 let tempLow4 = document.getElementById("tempLow4");
 let tempLow5 = document.getElementById("tempLow5");
 let tempLow6 = document.getElementById("tempLow6");
-let icon = document.getElementById("icon");
 let iconText1 = document.getElementById("iconText1");
 let iconText2 = document.getElementById("iconText2");
 let iconText3 = document.getElementById("iconText3");
 let iconText4 = document.getElementById("iconText4");
 let iconText5 = document.getElementById("iconText5");
 let iconText6 = document.getElementById("iconText6");
+let icon1 = document.getElementById("icon1");
+let icon2 = document.getElementById("icon2");
+let icon3 = document.getElementById("icon3");
+let icon4 = document.getElementById("icon4");
+let icon5 = document.getElementById("icon5");
+let icon6 = document.getElementById("icon6");
 let userCity = document.getElementById("userCity");
 let submitBtn = document.getElementById("submitBtn");
 
-let iconType;
-let iconIs;
-let kelvin;
+// let homePage = true;
 
-LoadPage();
+// if (homePage === true) {
+//     //LoadHomePage();
+// } else {
+//     //LoadFavsPage();
+// }
 
-async function LoadPage() {
+LoadHomePage();
+
+async function LoadHomePage() {
     const promise1 = await fetch('https://api.openweathermap.org/data/2.5/weather?lat=38.5810606&lon=-121.493895&appid=2af1c812e6a78735121f5ae9d2d27f6a');
     const data1 = await promise1.json();
     console.log(data1);
@@ -76,171 +84,47 @@ async function LoadPage() {
     const data2 = await promise2.json();
     console.log(data2);
 
+    /* City Name */
+    cityText1.innerText = data1.name;
+    cityText2.innerText = data1.name;
 
-        /* City Name */
-    cityText1.innerText = data1.name
-    cityText2.innerText = data1.name
-    // cityText3.innerText = data1.name
-    // cityText4.innerText = data1.name
-    // cityText5.innerText = data1.name
+    /* Current Temperature */
+    tempNow1.innerText = TempConverter(data1.main.temp) + "°";
 
+    /* Highest Temperature */
+    tempHigh1.innerText = TempConverter(data1.main.temp_max) + "°";
+    tempHigh2.innerText = "Hi " + TempConverter(data2.list[0].main.temp_max) + "°";
+    tempHigh3.innerText = "Hi " + TempConverter(data2.list[1].main.temp_max) + "°";
+    tempHigh4.innerText = "Hi " + TempConverter(data2.list[2].main.temp_max) + "°";
+    tempHigh5.innerText = "Hi " + TempConverter(data2.list[3].main.temp_max) + "°";
+    tempHigh6.innerText = "Hi " + TempConverter(data2.list[4].main.temp_max) + "°";
 
-        /* Current Temperature */
-    tempNow1.innerText = data1.main.temp
+    /* Lowest temperature */
+    tempLow1.innerText = TempConverter(data1.main.temp_min) + "°";
+    tempLow2.innerText = "Low " + TempConverter(data2.list[0].main.temp_min) + "°";
+    tempLow3.innerText = "Low " + TempConverter(data2.list[1].main.temp_min) + "°";
+    tempLow4.innerText = "Low " + TempConverter(data2.list[2].main.temp_min) + "°";
+    tempLow5.innerText = "Low " + TempConverter(data2.list[3].main.temp_min) + "°";
+    tempLow6.innerText = "Low " + TempConverter(data2.list[4].main.temp_min) + "°";
 
-    fetch('https://api.openweathermap.org/data/2.5/weather?lat=38.5810606&lon=-121.493895&appid=2af1c812e6a78735121f5ae9d2d27f6a').then(
-        response => response.json()
-    ).then(
-        data => kelvin = data.main.temp
-    ).then(
-        // TempConverter(data)
-    )/*.then(
-        tempNow1.innerText = kelvin
-    )*/
+    /* Icon's Text Description */
+    iconText1.innerText = data1.weather[0].main;
+    iconText2.innerText = data2.list[0].weather[0].main;
+    iconText3.innerText = data2.list[1].weather[0].main;
+    iconText4.innerText = data2.list[2].weather[0].main;
+    iconText5.innerText = data2.list[3].weather[0].main;
+    iconText6.innerText = data2.list[4].weather[0].main;
 
-        /* Hignest Temperature */
-    
+    /* Icon Image */
+    icon1 = getIconType(data1.weather[0].icon);
+    icon2 = getIconType(data2.list[0].weather[0].icon);
+    icon3 = getIconType(data2.list[1].weather[0].icon);
+    icon4 = getIconType(data2.list[2].weather[0].icon);
+    icon5 = getIconType(data2.list[3].weather[0].icon);
+    icon6 = getIconType(data2.list[4].weather[0].icon);    
 
-    fetch('https://api.openweathermap.org/data/2.5/weather?lat=38.5810606&lon=-121.493895&appid=2af1c812e6a78735121f5ae9d2d27f6a').then(
-        response => response.json()
-    ).then(
-        data => kelvin = data.main.temp_max
-    ).then(
-        TempConverter(kelvin)
-    )
-    fetch('https://api.openweathermap.org/data/2.5/forecast?lat=38.5810606&lon=-121.493895&appid=2af1c812e6a78735121f5ae9d2d27f6a').then(
-        response => response.json()
-    ).then(
-        data => kelvin = data.list[0].main.temp_max
-    ).then(
-        TempConverter(kelvin)
-    )
-    fetch('https://api.openweathermap.org/data/2.5/forecast?lat=38.5810606&lon=-121.493895&appid=2af1c812e6a78735121f5ae9d2d27f6a').then(
-        response => response.json()
-    ).then(
-        data => kelvin = data.list[1].main.temp_max
-    ).then(
-        TempConverter(kelvin)
-    )
-    fetch('https://api.openweathermap.org/data/2.5/forecast?lat=38.5810606&lon=-121.493895&appid=2af1c812e6a78735121f5ae9d2d27f6a').then(
-        response => response.json()
-    ).then(
-        data => kelvin = data.list[2].main.temp_max
-    ).then(
-        TempConverter(kelvin)
-    )
-    fetch('https://api.openweathermap.org/data/2.5/forecast?lat=38.5810606&lon=-121.493895&appid=2af1c812e6a78735121f5ae9d2d27f6a').then(
-        response => response.json()
-    ).then(
-        data => kelvin = data.list[3].main.temp_max
-    ).then(
-        TempConverter(kelvin)
-    )
-    fetch('https://api.openweathermap.org/data/2.5/forecast?lat=38.5810606&lon=-121.493895&appid=2af1c812e6a78735121f5ae9d2d27f6a').then(
-        response => response.json()
-    ).then(
-        data => kelvin = data.list[4].main.temp_max
-    ).then(
-        TempConverter(kelvin)
-    )
-    
-        /* Lowest temperature */
-    fetch('https://api.openweathermap.org/data/2.5/weather?lat=38.5810606&lon=-121.493895&appid=2af1c812e6a78735121f5ae9d2d27f6a').then(
-        response => response.json()
-    ).then(
-        data => kelvin = data.main.temp_min
-    ).then(
-        TempConverter(kelvin)
-    )
-    fetch('https://api.openweathermap.org/data/2.5/forecast?lat=38.5810606&lon=-121.493895&appid=2af1c812e6a78735121f5ae9d2d27f6a').then(
-        response => response.json()
-    ).then(
-        data => kelvin = data.list[0].main.temp_min
-    ).then(
-        TempConverter(kelvin)
-    )
-    fetch('https://api.openweathermap.org/data/2.5/forecast?lat=38.5810606&lon=-121.493895&appid=2af1c812e6a78735121f5ae9d2d27f6a').then(
-        response => response.json()
-    ).then(
-        data => kelvin = data.list[1].main.temp_min
-    ).then(
-        TempConverter(kelvin)
-    )
-    fetch('https://api.openweathermap.org/data/2.5/forecast?lat=38.5810606&lon=-121.493895&appid=2af1c812e6a78735121f5ae9d2d27f6a').then(
-        response => response.json()
-    ).then(
-        data => kelvin = data.list[2].main.temp_min
-    ).then(
-        TempConverter(kelvin)
-    )
-    fetch('https://api.openweathermap.org/data/2.5/forecast?lat=38.5810606&lon=-121.493895&appid=2af1c812e6a78735121f5ae9d2d27f6a').then(
-        response => response.json()
-    ).then(
-        data => kelvin = data.list[3].main.temp_min
-    ).then(
-        TempConverter(kelvin)
-    )
-    fetch('https://api.openweathermap.org/data/2.5/forecast?lat=38.5810606&lon=-121.493895&appid=2af1c812e6a78735121f5ae9d2d27f6a').then(
-        response => response.json()
-    ).then(
-        data => kelvin = data.list[4].main.temp_min
-    ).then(
-        TempConverter(kelvin)
-    )
-
-        /* Icon's Text Description */
-    iconText1.innerText = data1.weather[0].main
-    iconText2.innerText = data2.list[0].weather[0].main
-    iconText3.innerText = data2.list[0].weather[0].main
-    iconText4.innerText = data2.list[0].weather[0].main
-    iconText5.innerText = data2.list[0].weather[0].main
-    iconText6.innerText = data2.list[0].weather[0].main
-
-        /* Icon Image */
-    fetch('https://api.openweathermap.org/data/2.5/weather?lat=38.5810606&lon=-121.493895&appid=2af1c812e6a78735121f5ae9d2d27f6a').then(
-        response => response.json()
-    ).then(
-        data => iconType = data.weather[0].icon
-    ).then(
-        // getIconType(iconType)
-    )
-    /*fetch('https://api.openweathermap.org/data/2.5/weather?lat=38.5810606&lon=-121.493895&appid=2af1c812e6a78735121f5ae9d2d27f6a').then(
-        response => response.json()
-    ).then(
-        data => iconType = data.weather[0].icon
-    ).then(
-        getIconType(iconType)
-    )
-    fetch('https://api.openweathermap.org/data/2.5/weather?lat=38.5810606&lon=-121.493895&appid=2af1c812e6a78735121f5ae9d2d27f6a').then(
-        response => response.json()
-    ).then(
-        data => iconType = data.weather[0].icon
-    ).then(
-        getIconType(iconType)
-    )
-    fetch('https://api.openweathermap.org/data/2.5/weather?lat=38.5810606&lon=-121.493895&appid=2af1c812e6a78735121f5ae9d2d27f6a').then(
-        response => response.json()
-    ).then(
-        data => iconType = data.weather[0].icon
-    ).then(
-        getIconType(iconType)
-    )
-    fetch('https://api.openweathermap.org/data/2.5/weather?lat=38.5810606&lon=-121.493895&appid=2af1c812e6a78735121f5ae9d2d27f6a').then(
-        response => response.json()
-    ).then(
-        data => iconType = data.weather[0].icon
-    ).then(
-        getIconType(iconType)
-    )
-    fetch('https://api.openweathermap.org/data/2.5/weather?lat=38.5810606&lon=-121.493895&appid=2af1c812e6a78735121f5ae9d2d27f6a').then(
-        response => response.json()
-    ).then(
-        data => iconType = data.weather[0].icon
-    ).then(
-        getIconType(iconType)
-    )*/
-
-        /* Days */
+    /* Days */
+    // day1.innerText = 
     /*fetch('https://timeapi.io/api/Time/current/coordinate?latitude=38.5810606&longitude=-121.493895').then(
         response => response.json()
     ).then(
@@ -272,32 +156,70 @@ async function LoadPage() {
         data => day6.innerText = data.calculationResult.date
     )*/
 
-    
+
 }
 
 function TempConverter(kelvin) {
-    console.log(Math.floor((((kelvin - 273.15) * 9) / 5) + 32))
+    return Math.floor((((kelvin - 273.15) * 9) / 5) + 32)
 }
 
-/*function getIconType(iconType) {
-    if (iconType === "01d"){
-        iconIs = 
+function getIconType(iconType) {
+    if (iconType === "01d") {
+        // return URL("../assets/Sunny.png");
     }
-}*/
-
-/*const x = document.getElementById("demo");
-function getLocation() {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(showPosition);
-  } else {
-    x.innerHTML = "Geolocation is not supported by this browser.";
-  }
+    if (iconType === "01n") {
+        // return URL("");
+    }
+    if (iconType === "02d") {
+        // return URL("");
+    }
+    if (iconType === "02n") {
+        // return URL("");
+    }
+    if (iconType === "03d") {
+        // return URL("");
+    }
+    if (iconType === "03n") {
+        // return URL("");
+    }
+    if (iconType === "04d") {
+        // return URL("");
+    }
+    if (iconType === "04n") {
+        // return URL("");
+    }
+    if (iconType === "09d") {
+        // return URL("");
+    }
+    if (iconType === "09n") {
+        // return URL("");
+    }
+    if (iconType === "10d") {
+        // return URL("");
+    }
+    if (iconType === "10n") {
+        // return URL("");
+    }
+    if (iconType === "11d") {
+        // return URL("");
+    }
+    if (iconType === "11n") {
+        // return URL("");
+    }
+    if (iconType === "13d") {
+        // return URL("");
+    }
+    if (iconType === "13n") {
+        // return URL("");
+    }
+    if (iconType === "50d") {
+        // return URL("");
+    }
+    if (iconType === "50n") {
+        // return URL("");
+    }
 }
 
-function showPosition(position) {
-  x.innerHTML = "Latitude: " + position.coords.latitude +
-  "<br>Longitude: " + position.coords.longitude;
-}*/
 
 // submitBtn.addEventListener('click', function (e) {
 //     findCity(userCity);
@@ -321,7 +243,7 @@ function showPosition(position) {
 //         response => response.json()
 //     ).then(
 //         // data => console.log(data)
-//         data => cityText.innerText = data.results.location 
+//         data => cityText.innerText = data.results.location
 //     )
 // };
 
